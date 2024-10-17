@@ -23,8 +23,8 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True):
     c = 1 + M**2 * (gam + 1) / 2
     lam = np.sqrt(a**2 - 3 * b * c * np.tan(thetar)**2) # Eq. 4.20
     x = (a**3 - 9*b*(1 + M**2*(gam-1)/2 + M**4*(gam+1)/4) * np.tan(thetar)**2) / lam**3
-    tanB = (M**2 - 1 + 2*lam*np.cos( np.radians((720*n + np.acos(x)*180/np.pi)/3))) / (3*b * np.tan(thetar))
-    beta = np.degrees(np.atan(tanB))
+    tanB = (M**2 - 1 + 2*lam*np.cos( np.radians((720*n + np.arccos(x)*180/np.pi)/3))) / (3*b * np.tan(thetar))
+    beta = np.degrees(np.arctan(tanB))
 	
     assert not np.isnan(beta),'An oblique shock cannot exist under these conditions. Shock detached.'
 	
