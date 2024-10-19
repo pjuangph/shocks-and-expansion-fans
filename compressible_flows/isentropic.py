@@ -1,11 +1,13 @@
 from typing import Union
 import numpy as np
+from scipy.optimize import minimize_scalar
+import numpy.typing as npt 
 
-def IsenP(M:Union[np.ndarray,float],gamma:float) -> float:
+def IsenP(M:Union[npt.NDArray,float],gamma:float) -> float:
     """Computes the ratio P0/Ps
 
     Args:
-        M (Union[np.ndarray,float]): Mach Number
+        M (Union[npt.NDArray,float]): Mach Number
         gamma (float): specific heat ratio
 
     Returns:
@@ -14,11 +16,11 @@ def IsenP(M:Union[np.ndarray,float],gamma:float) -> float:
     return np.power((1+(gamma-1)/2.0 * M*M),gamma/(gamma-1))
 
 
-def FindMachP0P(P0_P:np.ndarray,gamma:float) -> float:
+def FindMachP0P(P0_P:npt.NDArray,gamma:float) -> float:
     """Finds the mach number given a P0/P ratio
 
     Args:
-        P0_P (Union[np.ndarray,float]): ratio of total to static pressure
+        P0_P (Union[npt.NDArray,float]): ratio of total to static pressure
         gamma (float): specific heat ratio
 
     Returns:
@@ -32,11 +34,11 @@ def FindMachP0P(P0_P:np.ndarray,gamma:float) -> float:
     
 
 
-def IsenT(M:np.ndarray,gamma:float) -> float:
+def IsenT(M:npt.NDArray,gamma:float) -> float:
     """Computes T0/Ts
 
     Args:
-        M (Union[np.ndarray,float]): _description_
+        M (Union[npt.NDArray,float]): _description_
         gamma (float): _description_
 
     Returns:
@@ -45,21 +47,30 @@ def IsenT(M:np.ndarray,gamma:float) -> float:
     return (1.0+(gamma-1.0)/2.0 *M*M)
 
 
-def A_As(M:np.ndarray,gamma:float) -> float:
+def A_As(M:npt.NDArray,gamma:float) -> float:
     """Computes the ratio of Area to Throat Area give a given mach number and gamma 
 
     Args:
-        M (Union[np.ndarray,float]): Mach Number
+        M (Union[npt.NDArray,float]): Mach Number
         gamma (float): Specific Heat Ratio 
 
     Returns:
         float: Area to throat area ratio 
     """
     a = (gamma+1.0)/(2.0*(gamma-1.0))
-    temp1 = np.power((gamma+1.0)/2.0,a)
-    temp2 = np.power((1+(gamma-1)/2*M*M),-a)/M
+    temp1 = np.power((gamma+1.0)/2.0,-a)
+    temp2 = np.power((1+(gamma-1)/2*M*M),a)/M
     return temp1*temp2
 
+def findMachAAs(AAs:float,gamma:float=1.4,IsSupersonic:bool=True) -> float:
+    def func(M,gamma):
+        return abs(A_As(M,gamma) - AAs)
+    
+    if IsSupersonic:
+        res = minimize_scalar(func,bounds=[1.01,6],args=(gamma))
+    else:
+        res = minimize_scalar(func,bounds=[0.05,0.99],args=(gamma))
+    return res.x 
 
 def Massflow(P0:float,T0:float,A:float,M:float,gamma:float,R:float=287):
     """Massflow rate calculation

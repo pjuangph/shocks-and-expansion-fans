@@ -38,7 +38,7 @@ def rho2_rho1(M1:Union[float,npt.NDArray],gam:float=1.4) -> Union[float,npt.NDAr
     """
     return (gam+1)*M1**2 / (2+(gam-1)*M1**2) 
 
-def T2_T1(M1:Union[float,npt.NDArray],gam:float=1.4) -> float:
+def T2_T1(M1:Union[float,npt.NDArray],gam:float=1.4) -> Union[float,npt.NDArray]:
     """Returns ratio of T2/T1 
 
     Args:
@@ -50,6 +50,19 @@ def T2_T1(M1:Union[float,npt.NDArray],gam:float=1.4) -> float:
     """
     return (1+2*gam/(gam+1)*(M1**2-1)) * (2+(gam-1)*M1**2)/((gam+1)*M1**2)
 
+def P02_P01(M1:Union[float,npt.NDArray],gam:float=1.4) -> Union[float,npt.NDArray]:
+    """Returns the ratio of total pressure after a shock 
+
+    Args:
+        M1 (Union[float,npt.NDArray]): Mach number before shock 
+        gam (float, optional): Ratio of specific heats. Defaults to 1.4.
+
+    Returns:
+        Union[float,npt.NDArray]: ratio of P02/P01 where P02 is after shock, P01 is
+    """
+    a = (gam+1)*M1**2 / ((gam-1)*M1**2+2)
+    b = (gam+1)/(2*gam*M1**2-(gam-1))
+    return a ** (gam/(gam-1)) * b**(1/(gam-1))
 if __name__ == "__main__":
     from isentropic import IsenT
     

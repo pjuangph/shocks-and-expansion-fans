@@ -1,7 +1,8 @@
+from typing import Tuple
 import numpy as np 
-import shockjump
+from . import shockjump
 
-def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True):
+def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,float,float,float]:
     """_summary_
 
     Args:
@@ -9,6 +10,14 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True):
         theta (float): _description_
         gam (float, optional): _description_. Defaults to 1.4.
         IsWeak (bool, optional): _description_. Defaults to True.
+    
+    Returns:
+        (Tuple): containing
+        
+            **Beta** (float): shock angle
+            **Mn1** (float): mach number normal to the shock
+            **M2** (float): Mach number exiting the shock along angle theta
+            **theta_max** (float): maximum turning angle
     """
     # input assignment and validation
 	# Anderson, Modern Compressible Flow, pg 143
