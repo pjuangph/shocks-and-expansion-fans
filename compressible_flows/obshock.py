@@ -36,7 +36,7 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,f
     beta = np.degrees(np.arctan(tanB))
 	
     assert not np.isnan(beta),'An oblique shock cannot exist under these conditions. Shock detached.'
-	
+    
     Mn1 = M * np.sin(np.radians(beta))
     
     Mn2 = shockjump.M2(Mn1,gam)

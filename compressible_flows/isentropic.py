@@ -3,12 +3,12 @@ import numpy as np
 from scipy.optimize import minimize_scalar
 import numpy.typing as npt 
 
-def IsenP(M:Union[npt.NDArray,float],gamma:float) -> float:
+def IsenP(M:Union[npt.NDArray,float],gamma:float=1.4) -> float:
     """Computes the ratio P0/Ps
 
     Args:
         M (Union[npt.NDArray,float]): Mach Number
-        gamma (float): specific heat ratio
+        gamma (float): specific heat ratio. Defaults to 1.4
 
     Returns:
         float: P0/P ratio 
@@ -16,12 +16,12 @@ def IsenP(M:Union[npt.NDArray,float],gamma:float) -> float:
     return np.power((1+(gamma-1)/2.0 * M*M),gamma/(gamma-1))
 
 
-def FindMachP0P(P0_P:npt.NDArray,gamma:float) -> float:
+def FindMachP0P(P0_P:npt.NDArray,gamma:float=1.4) -> float:
     """Finds the mach number given a P0/P ratio
 
     Args:
         P0_P (Union[npt.NDArray,float]): ratio of total to static pressure
-        gamma (float): specific heat ratio
+        gamma (float): specific heat ratio. Defaults to 1.4
 
     Returns:
         float: [description]
@@ -34,12 +34,12 @@ def FindMachP0P(P0_P:npt.NDArray,gamma:float) -> float:
     
 
 
-def IsenT(M:npt.NDArray,gamma:float) -> float:
+def IsenT(M:npt.NDArray,gamma:float=1.4) -> float:
     """Computes T0/Ts
 
     Args:
         M (Union[npt.NDArray,float]): _description_
-        gamma (float): _description_
+        gamma (float): specific heat ratio. Defaults to 1.4
 
     Returns:
         float: Ratio of T0/Ts
@@ -47,12 +47,12 @@ def IsenT(M:npt.NDArray,gamma:float) -> float:
     return (1.0+(gamma-1.0)/2.0 *M*M)
 
 
-def A_As(M:npt.NDArray,gamma:float) -> float:
+def A_As(M:npt.NDArray,gamma:float=1.4) -> float:
     """Computes the ratio of Area to Throat Area give a given mach number and gamma 
 
     Args:
         M (Union[npt.NDArray,float]): Mach Number
-        gamma (float): Specific Heat Ratio 
+        gamma (float): specific heat ratio. Defaults to 1.4
 
     Returns:
         float: Area to throat area ratio 
@@ -72,7 +72,7 @@ def findMachAAs(AAs:float,gamma:float=1.4,IsSupersonic:bool=True) -> float:
         res = minimize_scalar(func,bounds=[0.05,0.99],args=(gamma))
     return res.x 
 
-def Massflow(P0:float,T0:float,A:float,M:float,gamma:float,R:float=287):
+def Massflow(P0:float,T0:float,A:float,M:float,gamma:float=1.4,R:float=287):
     """Massflow rate calculation
     
     Args:
@@ -80,7 +80,7 @@ def Massflow(P0:float,T0:float,A:float,M:float,gamma:float,R:float=287):
         T0 (float): Inlet Total Temperature (K)
         A (float): Area (m^2)
         M (float): Mach Number 
-        gamma (float): Ratio of specific heats
+        gamma (float): specific heat ratio. Defaults to 1.4
         R (float): Ideal Gas Constant. Defaults to 287 J/(KgK).
 
     Returns:
