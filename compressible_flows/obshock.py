@@ -1,6 +1,6 @@
 from typing import Tuple
 import numpy as np 
-from . import shockjump
+from .shockjump import shockjump
 
 def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,float,float,float]:
     """_summary_
