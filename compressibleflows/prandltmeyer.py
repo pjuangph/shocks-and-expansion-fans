@@ -19,4 +19,13 @@ def prandlt(M:Tuple[float,npt.NDArray], gam:float):
     return nu,mu
     
 def prandltM(nu:float,gam:float):
-    pass
+    """Get the mach number from prandlt meyer expansion
+
+    Args:
+        nu (float): _description_
+        gam (float): _description_
+    """
+    
+    assert "Prandlt Meyer angle Nu has to be smaller than pi/2*(sqrt((gamma+1)/(gamma-1))-1)",nu>np.pi/2*(np.sqrt((gam+1)/(gam-1))-1) 
+    
+    # Solve for prandlt meyer angle
