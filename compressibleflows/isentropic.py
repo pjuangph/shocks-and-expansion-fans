@@ -3,7 +3,7 @@ import numpy as np
 from scipy.optimize import minimize_scalar
 import numpy.typing as npt 
 
-def IsenP(M:Union[npt.NDArray,float],gamma:float=1.4) -> float:
+def P0_P(M:Union[npt.NDArray,float],gamma:float=1.4) -> float:
     """Computes the ratio P0/Ps
 
     Args:
@@ -34,7 +34,7 @@ def FindMachP0P(P0_P:npt.NDArray,gamma:float=1.4) -> float:
     
 
 
-def IsenT(M:npt.NDArray,gamma:float=1.4) -> float:
+def T0_T(M:npt.NDArray,gamma:float=1.4) -> float:
     """Computes T0/Ts
 
     Args:

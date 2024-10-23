@@ -64,7 +64,7 @@ def P02_P01(M1:Union[float,npt.NDArray],gam:float=1.4) -> Union[float,npt.NDArra
     b = (gam+1)/(2*gam*M1**2-(gam-1))
     return a ** (gam/(gam-1)) * b**(1/(gam-1))
 if __name__ == "__main__":
-    from isentropic import IsenT
+    from isentropic import T0_T
     
     P2 = P2_P1(3,1.4)
     print(f"P2 = {P2:0.3f}")
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     mach2 = M2(3,1.4)
     print(f"M2 = {mach2:0.3f}")
     
-    T0_T = IsenT(3,1.4)
+    T0_T = T0_T(3,1.4)
     print(f"T0_T = {T0_T:0.3f}")
     
     T2 = 288*T2_T1(3,1.4)
