@@ -1,6 +1,6 @@
 from typing import Tuple
 import numpy as np 
-from .shockjump import shockjump
+from . import shockjump
 
 def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,float,float,float]:
     """_summary_
@@ -15,7 +15,7 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,f
         (Tuple): containing
         
             **Beta** (float): shock angle
-            **Mn1** (float): mach number normal to the shock
+            **M1n** (float): mach number normal to the shock
             **M2** (float): Mach number exiting the shock along angle theta
             **theta_max** (float): maximum turning angle
     """
@@ -37,9 +37,9 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,f
 	
     assert not np.isnan(beta),'An oblique shock cannot exist under these conditions. Shock detached.'
     
-    Mn1 = M * np.sin(np.radians(beta))
+    M1n = M * np.sin(np.radians(beta))
     
-    Mn2 = shockjump.M2(Mn1,gam)
+    Mn2 = shockjump.M2(M1n,gam)
     M2 = Mn2 / np.sin(np.radians(beta - theta))
 	
 	## theta_max calculation
@@ -53,13 +53,13 @@ def obshock(M:float,theta:float,gam:float=1.4,IsWeak:bool=True) -> Tuple[float,f
     
     if(theta == 0):
         M2 = 0
-        Mn1 = 1
-    return beta,Mn1,M2,theta_max
+        M1n = 1
+    return beta,M1n,M2,theta_max
 
 if __name__=='__main__':
     M=3.5 
     theta= 15
     gam=1.4
-    beta,Mn1,M2,theta_max = obshock(M=3.5,theta=15,gam=1.4,IsWeak=True)
+    beta,M1n,M2,theta_max = obshock(M=3.5,theta=15,gam=1.4,IsWeak=True)
     print(f"Before Oblique Shock \n\t theta:{theta} M1:{M}")
-    print(f"After Oblique Shock \n\t Beta:{beta} Mn1:{Mn1} M2:{M2} ThetaMax:{theta_max}")
+    print(f"After Oblique Shock \n\t Beta:{beta} M1n:{M1n} M2:{M2} ThetaMax:{theta_max}")
