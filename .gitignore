@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 .DS_Store
 homework5.py
+homework6.py
 notes.py
