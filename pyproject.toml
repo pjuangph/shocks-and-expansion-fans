@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "compressible-flows"
-version = "1.0.0"
+version = "1.0.1"
 description = "Compressible-flows is a library of isentropic equations used to predict shocks, expansions, nozzles, and diffusers"
 authors = ["Paht Juangphanich <paht.juangphanich@nasa.gov>"]
 packages = [
@@ -10,7 +10,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.9"
 scipy = "*"
-numpy = "*"
+numpy = ">2.0.0"
 matplotlib = "*"
 
 
