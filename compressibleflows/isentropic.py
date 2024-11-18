@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from typing import Union
 import numpy as np
 from scipy.optimize import minimize_scalar

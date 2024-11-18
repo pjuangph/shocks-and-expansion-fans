@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from typing import Tuple
 import numpy as np 
 from . import shockjump
